@@ -9,3 +9,9 @@ RSYNC_PARAMS=("-h" "--progress" )
 
 #sync materia
 rsync ${RSYNC_PARAMS[@]} "${MINIONROOT}/ffxivminion/MadaoFiles/MateriaSocket/Common Profile.lua" "${GITROOT}/ffxivminion/MadaoFiles/MateriaSocket/"	
+
+
+
+if [ -f "${GITROOT}/anonymize.sh" ]; then
+	"${GITROOT}/anonymize.sh"
+fi
