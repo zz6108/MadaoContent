@@ -8,12 +8,12 @@
 ## Materia quicklist
 Crafter
 ```
-1x	Craftsman's Cunning Materia I 1
-2x	Craftsman's Cunning Materia II 2
-1x	Craftsman's Cunning Materia III 1
-1x	Craftsman's Cunning Materia IV 1
-6x	Craftsman's Cunning Materia V 6
-18x	Craftsman's Cunning Materia VII 18 
+1x	Craftsman's Cunning Materia I
+2x	Craftsman's Cunning Materia II
+1x	Craftsman's Cunning Materia III
+1x	Craftsman's Cunning Materia IV
+6x	Craftsman's Cunning Materia V
+18x	Craftsman's Cunning Materia VII 
 5x 	Craftsman's Cunning Materia IX 
 2x	Craftsman's Competence Materia IX
 7x	Craftsman's Competence Materia X
