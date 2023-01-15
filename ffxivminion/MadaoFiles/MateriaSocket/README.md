@@ -7,7 +7,7 @@
 
 ## Progress
 - [x] Gatherer base melds for all classes.
-- [ ] Gatherer weapon melds.
+- [x] Gatherer weapon melds.
 - [ ] Crafting base melds for all classes.
 - [ ] Crafting weapon melds.
 
