@@ -6,8 +6,19 @@
 
 
 ## Progress
-- [x] Gatherer base melds for all classes
-- [ ] Gatherer weapon melds
-- [ ] Crafting base melds for all classes
-- [ ] Crafting weapon melds
+- [x] Gatherer base melds for all classes.
+- [ ] Gatherer weapon melds.
+- [ ] Crafting base melds for all classes.
+- [ ] Crafting weapon melds.
 
+
+
+## Installation
+1. Copy `Common Profile` to `C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\MadaoFiles\MateriaSocket\`.
+2. Set ingame to use sama data on all characters.
+3. Press start.
+
+
+--
+
+![materimeld.png](images/materiameld.png)
