@@ -12,6 +12,14 @@ rsync ${RSYNC_PARAMS[@]} "${MINIONROOT}/ffxivminion/MadaoFiles/MateriaSocket/Com
 
 
 
+if [ ! -d "${GITROOT}/zzzPatchCutscene" ]; then
+	mkdir "${GITROOT}/zzzPatchCutscene"
+fi
+
+rsync ${RSYNC_PARAMS[@]} "${MINIONROOT}/zzzPatchCutscene/module.def" "${GITROOT}/zzzPatchCutscene/"
+rsync ${RSYNC_PARAMS[@]} "${MINIONROOT}/zzzPatchCutscene/zzzPatchCutscene.lua" "${GITROOT}/zzzPatchCutscene/"
+
+
 if [ -f "${GITROOT}/anonymize.sh" ]; then
 	"${GITROOT}/anonymize.sh"
 fi

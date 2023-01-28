@@ -1,0 +1,6 @@
+[Module]
+Name=zzzPatchCutscene
+Dependencies=minionlib,ffxivminion,KitanoiFuncs
+Version=1
+Files=zzzPatchCutscene.lua
+enabled=1
