@@ -1,3 +1,5 @@
+MadaoKDFStore = {}
+
 function c_skipcutscene:evaluate()
 	local noskip = {
 		[0] = true,
@@ -33,3 +35,119 @@ Player:Stop()
 		lastaction = Now()
 	end		
 end
+
+
+
+
+
+RegisterEventHandler('Module.Initalize', 
+function()
+	if FileExists(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID())) then
+		MadaoKDFStore = FileLoad(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID()))
+	end
+	
+	
+	Settings.Global.MadaoPlanTaskAPI["KDF2"] = 
+	{
+		category = "Kitanoi's Addons",
+		is_can_swap = "",
+		is_hidden = "return false",
+		is_stop = 
+		[[
+			return not KitanoiFuncs.AreKitanoiAddonsRunning("KDF") or KitanoiFuncs.RunCounter == 0
+		]],
+		is_valid = 
+		[[
+			return table.valid(Kitanois_Dungeon_Framework)
+		]],
+		start = 
+		[[
+			local loadSettings = function()
+				return FileLoad(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID()))
+			end
+			
+			
+			settings = loadSettings()
+			
+			SendTextCommand(string.format("/gearset equip %d", settings.GearSet));
+			gSkillProfile = "xxx MCR xxx"
+			gSkillProfileIndex = GetKeyByValue(gSkillProfile,SkillMgr.profiles)
+			
+			gBotMode = "Assist"
+            gBotModeIndex = GetKeyByValue(gBotMode, gBotModeList)
+			ml_global_information:ToggleRun()
+			
+			KitanoiSettings.SingleOrQueue = 1 
+			KitanoiFuncs.DFSelectedDungeon = settings.data 
+			KitanoiFuncs.RunCounter = settings.RunCounter
+			KitanoiFuncs.EnableAddon('dungeon framework',true) 
+			
+			return true
+		]],
+		stop = 
+		[[
+		
+			if not KitanoiFuncs.InDuty() and not KitanoiFuncs.AreKitanoiAddonsRunning("KDF") then
+				KitanoiFuncs.EnableAddon("dungeon framework",false) 
+			end
+			KitanoiFuncs.EnableAddon("dungeon framework",false) 
+			
+		]],
+		
+		ui = 
+		[[
+			local saveSettings = function(inp)
+				FileSave(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID()), inp)
+			end
+			local uniqueid = tostring(SettingsUUID.MadaoSchedule.nowFileName)..tostring(plate.stamp) 
+			KitanoiFuncs.MaAPISelectedStamp = uniqueid 
+			
+			gsblank = Player:GetGearSetList()
+			gsUi = {}
+			
+			for k, v in ipairs(gsblank) do
+				gsUi[k] = v.name
+			end
+			
+			
+			if MadaoKDFStore.GearSet == nil then MadaoKDFStore.GearSet = 1 end
+			
+			local val, chg = GUI:Combo("gsname##mdUI", MadaoKDFStore.GearSet, gsUi);
+			if chg then
+				MadaoKDFStore.GearSet = val
+				saveSettings(MadaoKDFStore)
+			end
+			if (KitanoiFuncs.MaAPI[uniqueid]==nil) then 
+				d("Create blank dungeon task") 
+				KitanoiFuncs.MaAPI[uniqueid]= {data = {name="none",},runcounter=0,} 
+			end 
+			
+			if (KitanoiFuncs.MaAPI[uniqueid]~=nil) then 
+				KitanoiFuncs.MaAPI[uniqueid].runcounter,changed = GUI:InputInt(GetString('Run Counter')..'##RunCounterMAPI'.. uniqueid, MadaoKDFStore.RunCounter or KitanoiFuncs.MaAPI[uniqueid].runcounter) 
+				if KitanoiFuncs.MaAPI[uniqueid] ~= nil and KitanoiFuncs.MaAPI[uniqueid].data ~= nil and ( MadaoKDFStore.data == nil or KitanoiFuncs.MaAPI[uniqueid].data.name ~= MadaoKDFStore.data.name )then
+					MadaoKDFStore.data = KitanoiFuncs.MaAPI[uniqueid].data
+				end
+				if changed then 
+					kIO.save('mrcchange') 
+					MadaoKDFStore.RunCounter = KitanoiFuncs.MaAPI[uniqueid].runcounter
+					
+					saveSettings(MadaoKDFStore)
+				end 
+				
+				if (MadaoKDFStore.data~=nil and MadaoKDFStore.data.name ~= nil) then 
+					GUI:Text('Dungeon Selected for Task:') 
+					GUI:NewLine() 
+					GUI:Text(MadaoKDFStore.data.name.. '(' .. MadaoKDFStore.RunCounter or 0 .. ')')
+					
+					
+					MadaoKDFStore.data = KitanoiFuncs.MaAPI[uniqueid].data
+					saveSettings(MadaoKDFStore)
+					
+				end 
+				GUI:NewLine() 
+				KitanoiFuncs.MAPIDKDF() 
+			end
+		]]
+	}
+end
+, 'KDF2 init')
