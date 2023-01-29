@@ -1,4 +1,5 @@
 MadaoKDFStore = {}
+MadaoSessionInit = false
 
 function c_skipcutscene:evaluate()
 	local noskip = {
@@ -37,11 +38,28 @@ Player:Stop()
 end
 
 
-
+RegisterEventHandler('Gameloop.Update',
+function()
+	if not GetGameState() == FFXIV.GAMESTATE.INGAME then return end
+	if MadaoSessionInit == true then return end
+	
+	if not MadaoSchedule2.running then return end
+	
+	--make sure we're not in duty, and just stop
+	if table.valid(KitanoiFuncs) and not KitanoiFuncs.InDuty() and KitanoiFuncs.AreKitanoiAddonsRunning("KDF") then
+			d("disabling DF?")
+			KitanoiFuncs.EnableAddon('dungeon framework',false)
+			KitanoiFuncs.RunCounter = 0
+			KitanoiFuncs.StopNav() --facepalm, why
+	end
+end, "KDF2 loginfix")
 
 
 RegisterEventHandler('Module.Initalize', 
 function()
+
+	KitanoiFuncs.EnableAddon('dungeon framework',false)
+	d("------------------- kitanoi ups?", table.valid(Kitanois_Dungeon_Framework))
 	if FileExists(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID())) then
 		MadaoKDFStore = FileLoad(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID()))
 	end
@@ -66,12 +84,14 @@ function()
 				return FileLoad(string.format("%s/zzzPatchCutscene/settings-%s-%s.lua", GetLuaModsPath(), Player.Name, GetUUID()))
 			end
 			
+			MadaoSessionInit = true
 			
 			settings = loadSettings()
 			
 			SendTextCommand(string.format("/gearset equip %d", settings.GearSet));
 			gSkillProfile = "xxx MCR xxx"
 			gSkillProfileIndex = GetKeyByValue(gSkillProfile,SkillMgr.profiles)
+			
 			
 			gBotMode = "Assist"
             gBotModeIndex = GetKeyByValue(gBotMode, gBotModeList)
@@ -80,7 +100,7 @@ function()
 			KitanoiSettings.SingleOrQueue = 1 
 			KitanoiFuncs.DFSelectedDungeon = settings.data 
 			KitanoiFuncs.RunCounter = settings.RunCounter
-			KitanoiFuncs.EnableAddon('dungeon framework',true) 
+			KitanoiFuncs.EnableAddon('dungeon framework',true) 	
 			
 			return true
 		]],
@@ -88,9 +108,9 @@ function()
 		[[
 		
 			if not KitanoiFuncs.InDuty() and not KitanoiFuncs.AreKitanoiAddonsRunning("KDF") then
-				KitanoiFuncs.EnableAddon("dungeon framework",false) 
+				KitanoiFuncs.EnableAddon("dungeon framework",false)
+				MadaoSessionInit = false
 			end
-			KitanoiFuncs.EnableAddon("dungeon framework",false) 
 			
 		]],
 		
