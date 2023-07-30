@@ -5,6 +5,9 @@
 [Teamcraft crafting melding guide (6.3)](https://guides.ffxivteamcraft.com/guide/crafting-melding-guide)  
 
 
+
+
+
 ## Materia quicklist
 Crafter
 ```
@@ -32,6 +35,9 @@ Gatherer
 8x	Gatherer's Guile Materia IX
 13x	Gatherer's Guile Materia X
 ```
+
+640 WAR / SGE / SCH / WHM etro list not available unfortunately.
+full 640 green crafted gear.
 
 ## Progress
 - [x] Gatherer base melds for all classes.
