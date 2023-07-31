@@ -1,4 +1,4 @@
-# 6.3 Materia melds
+# 6.4 Materia melds
 
 ## Sources
 [Teamcraft gathering melding guide (6.3)](https://guides.ffxivteamcraft.com/guide/gathering-melding-guide)  
@@ -22,22 +22,20 @@ Crafter
 7x	Craftsman's Competence Materia X
 16x	Craftsman's Command Materia IX
 22x	Craftsman's Command Materia X
+
 ```
 
 Gatherer
 ```
-14x	Gatherer's Grasp Materia IX
-1x	Gatherer's Grasp Materia X
-1x	Gatherer's Guerdon Materia VII
-32x 	Gatherer's Guerdon Materia IX
-15x	Gatherer's Guerdon Materia X
-1x	Gatherer's Guile Materia IV
-8x	Gatherer's Guile Materia IX
-13x	Gatherer's Guile Materia X
+1x 	Gatherer's Grasp Materia I
+23x 	Gatherer's Grasp Materia IX
+1x 	Gatherer's Grasp Materia X
+1x 	Gatherer's Guerdon Materia VII
+18x 	Gatherer's Guerdon Materia IX
+15x 	Gatherer's Guerdon Materia X
+13x 	Gatherer's Guile Materia IX
+13x 	Gatherer's Guile Materia X
 ```
-
-640 WAR / SGE / SCH / WHM etro list not available unfortunately.
-full 640 green crafted gear.
 
 ## Progress
 - [x] Gatherer base melds for all classes.
